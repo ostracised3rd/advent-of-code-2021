@@ -1,13 +1,34 @@
 package main
 
-import "github.com/ostracised3rd/advent-of-code-2021/day03"
+import (
+	"os"
+
+	"github.com/ostracised3rd/advent-of-code-2021/day01"
+	"github.com/ostracised3rd/advent-of-code-2021/day02"
+	"github.com/ostracised3rd/advent-of-code-2021/day03"
+)
 
 func main() {
-	// day01.P1()
-	// day01.P2()
-	// day02.P1()
-	// day02.P2()
-	day03.P1()
-	day03.P2()
+	args := os.Args[1:]
 
+	if len(args) < 2 {
+		panic("need day and part to work")
+	}
+
+	days(args[0])(args[1])
+}
+
+func days(day string) func(part string) {
+
+	dm := map[string]func(part string){
+		"day01": day01.Run,
+		"day02": day02.Run,
+		"day03": day03.Run,
+	}
+
+	if fn, ok := dm[day]; ok {
+		return fn
+	}
+
+	panic("day not found")
 }

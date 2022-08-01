@@ -59,16 +59,29 @@ func movementWithAim(data []string) int {
 	return x * y
 }
 
-func P1() {
-	raw := helpers.ReadData("assets/d02.txt")
+func p1(raw string) {
 	data := strings.Split(raw, "\n")
 	res := movement(data)
 	fmt.Println(res)
 }
 
-func P2() {
-	raw := helpers.ReadData("assets/d02.txt")
+func p2(raw string) {
 	data := strings.Split(raw, "\n")
 	res := movementWithAim(data)
 	fmt.Println(res)
+}
+
+func Run(part string) {
+	raw := helpers.ReadData("assets/d02.txt")
+
+	dm := map[string]func(raw string){
+		"p1": p1,
+		"p2": p2,
+	}
+
+	if fn, ok := dm[part]; ok {
+		fn(raw)
+	} else {
+		panic("part not found")
+	}
 }

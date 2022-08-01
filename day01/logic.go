@@ -50,17 +50,30 @@ func threeSums(inputs []int) []int {
 	return sums
 }
 
-func P1() {
-	raw := helpers.ReadData("assets/d01.txt")
+func p1(raw string) {
 	data := dataParser(raw)
 	res := increaseCounter(data)
 	fmt.Println(res)
 }
 
-func P2() {
-	raw := helpers.ReadData("assets/d01.txt")
+func p2(raw string) {
 	data := dataParser(raw)
 	sums := threeSums(data)
 	res := increaseCounter(sums)
 	fmt.Println(res)
+}
+
+func Run(part string) {
+	raw := helpers.ReadData("assets/d01.txt")
+
+	dm := map[string]func(raw string){
+		"p1": p1,
+		"p2": p2,
+	}
+
+	if fn, ok := dm[part]; ok {
+		fn(raw)
+	} else {
+		panic("part not found")
+	}
 }
